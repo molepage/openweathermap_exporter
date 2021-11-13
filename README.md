@@ -8,9 +8,10 @@ Exporter for openweather API
 
 Create an API key from https://openweathermap.org/.
 
-Install dependancies with `go get` and then build the binary.
+Install dependancies with `go mod init` and `go get` and then build the binary.
 
 ```
+go mod init github.com/blackrez/openweathermap_exporter
 go get -d -v
 go build
 OWM_LOCATION=LONDON,UK  OWM_API_KEY=apikey ./openweathermap_exporter
@@ -37,7 +38,17 @@ scrape_configs:
 The image is a multistage image, just launch as usual :
 
 ```
-docker build -t ows .
-docker run --rm -e OWM_LOCATION=LONDON,UK  -e OWM_API_KEY=apikey -p 2112:2112 ows
+docker-compose up -d
 ```
 
+## Configuration
+
+```
+OWM_API_KEY Your OWM API Key.
+OWM_LOCATION Location you want to monitor. default: Lille,FR
+OWM_UNITS Units: C (Celsius), F (Fahrenheit) or K (Kelvin). default: C
+OWM_LANGUAGE Language to display in. default: en
+OWM_POLLING_INTERVAL Interval at which OWM is polled. default: 60s
+OWM_TIMEOUT Timeout for requests. default: 1s
+SERVER_PORT Port where /metrics are published, and must match docker-compose port value. default: 2112
+```

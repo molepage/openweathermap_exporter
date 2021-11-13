@@ -1,0 +1,11 @@
+version: "3"
+services:
+  prom-weather-exporter:
+    build: .
+    container_name: prom-weather-exporter
+    restart: on-failure
+    environment:
+      - OWM_LOCATION=YourLocation
+      - OWM_API_KEY=YourKey
+    ports:
+      - "2112:2112"
